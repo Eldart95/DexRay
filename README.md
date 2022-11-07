@@ -1,3 +1,6 @@
+
+Forked from: Trustworthy-Software/DexRay 
+
 # DexRay
 In this repository, we host the artefacts of our approach DexRay: A Simple, yet Effective Deep Learning Approach to Android Malware Detection based on Image Representation of Bytecode.
 This work has been published at MLHat 2021.
