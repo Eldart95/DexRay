@@ -11,12 +11,12 @@ Computer vision has witnessed several advances in recent years, with unprecedent
 ## Generating images is possible from TXT or APK files., with path being implicitly given or fixed.
 
 ### Running the commad:
-    -python ./apktoimage.py TXT 
+    python ./apktoimage.py TXT 
 will generate image files from all TXT hash files that are located in [project_root]/hashes/goodware&&malware
 the images will be generated in [project_root]/images/txt/goodware&&malware
 
 ### Running the commad:
-    -python ./apktoimage.py APK 
+    python ./apktoimage.py APK 
 will generate image files from all APK files that are located in [project_root]/apks/goodware&&malware
 the images will be generated in [project_root]/images/apks/goodware&&malware
 
