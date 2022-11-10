@@ -114,7 +114,7 @@ class ImagesGenerator:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2 or len(sys.argv) > 3:
-        raise Exception("[!] Argument can be APK to TXT only.")
+        raise Exception("[!] Argument can be APK or TXT only.")
 
     imageGenerator = ImagesGenerator()
     imageGenerator.set_state(sys.argv[1])
