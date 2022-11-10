@@ -8,22 +8,19 @@ This work has been published at MLHat 2021.
 Computer vision has witnessed several advances in recent years, with unprecedented performance provided by deep representation learning research. Image formats thus appear attractive to other fields such as malware detection, where deep learning on images alleviates the need for comprehensively hand-crafted features generalising to different malware variants. We postulate that this research direction could become the next frontier in Android malware detection, and therefore requires a clear roadmap to ensure that new approaches indeed bring novel contributions. We contribute with a first building block by developing and assessing a baseline pipeline for image-based malware detection with straightforward steps. We propose DexRay, which converts the bytecode of the app DEX files into grey-scale "vector" images and feeds them to a 1-dimensional Convolutional Neural Network model. We view DexRay as foundational due to the exceedingly basic nature of the design choices, allowing to infer what could be a minimal performance that can be obtained with image-based learning in malware detection. The performance of DexRay evaluated on over 158k apps demonstrates that, while simple, our approach is effective with a high detection rate(F1-score= 0.96). Finally, we investigate the impact of time decay and image-resizing on the performance of DexRay and assess its resilience to obfuscation. This work-in-progress paper contributes to the domain of Deep Learning based Malware detection by providing a sound, simple, yet effective approach (with available artefacts) that can be the basis to scope the many profound questions that will need to be investigated to fully develop this domain.
 
 # Getting started:
-## To generate the images, use ``apktoimage.py`` script:
-This script generates an image from the given APK based on the Dalvik bytecode.
+## Generating images is possible from TXT or APK files., with path being implicitly given or fixed.
 
-### INPUTs are: 
-    - The APK to convert into image
-    - The path in which the resulting image will be
-### OUTPUTs are:
-    - A greyscale image representing the Dalvik bytecode
+### Running the commad:
+    -python ./apktoimage.py TXT 
+will generate image files from all TXT hash files that are located in [project_root]/hashes/goodware&&malware
+the images will be generated in [project_root]/images/txt/goodware&&malware
 
-Example: 
+### Running the commad:
+    -python ./apktoimage.py APK 
+will generate image files from all APK files that are located in [project_root]/apks/goodware&&malware
+the images will be generated in [project_root]/images/apks/goodware&&malware
 
-```python3 apktoimage.py APK DESTINATION ```
-
-## Images availability
-
-Due to the large size of the images dataset, we share it upon request.
+## In the future, there will be an option to provide paths as arguments.
 
 ## To generate an obfuscated APK, use ``launch_obfuscation.sh`` script in Obfuscation/ folder:
 This script generates an obfuscated APK from the given APK based on options given in the script.
