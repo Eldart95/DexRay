@@ -113,9 +113,8 @@ class ImagesGenerator:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Error..")
-        sys.exit(1)
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
+        raise Exception("[!] Argument can be APK to TXT only.")
 
     imageGenerator = ImagesGenerator()
     imageGenerator.set_state(sys.argv[1])
@@ -123,23 +122,6 @@ if __name__ == "__main__":
     imageGenerator.generate_images()
 
     """
-    if len(sys.argv) == 1:
-
-        print("No arguments provided, therefor will decode goodware and malware hashes texts to png file.")
-        goodware_thread = threading.Thread(target=generate_png_of_text, args=("goodware_hashes.txt", "images/goodware"))
-        malware_thread = threading.Thread(target=generate_png_of_text, args=("malware_hashes.txt", "images/malware"))
-
-        goodware_thread.start()
-        malware_thread.start()
-
-        goodware_thread.join()
-        malware_thread.join()
-        print("Done encoding... exiting.")
-        sys.exit(0)
-
-    elif len(sys.argv) < 3:
-        raise Exception("[!] Usage: python3 apktoimage.py APK DESTINATION")
-
     else:
         filename = sys.argv[1]
         destination_folder = sys.argv[2]
