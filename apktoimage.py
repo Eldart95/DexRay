@@ -23,13 +23,13 @@ class ImagesGenerator:
 
     def __init__(self):
         self.state = None
-        self.pathToInputFolder = None
-        self.pathToOutputFolder = None
+        self.pathToInputFolder = ""
+        self.pathToOutputFolder = ""
         print("ImageGenerator() created.")
 
     def set_state(self, state: str):
         self.state = self.GenerateFrom.TXT if state == "TXT" else self.state == self.GenerateFrom.APK
-        print(f"State changed to Generating from {self.state.name}")
+        print(f"State changed to Generating from {self.state}")
 
     def set_paths(self):
         if self.state == self.GenerateFrom.TXT:
@@ -63,20 +63,28 @@ class ImagesGenerator:
         print(f"Thread {threading.currentThread().ident} is generating images from APK...")
         for paths, names, filenames in os.walk(goodware_in):
             for filename in [f for f in filenames if f.endswith(".apk")]:
-                apk = APK(filename)
-                stream = bytes()
-                for s in get_dex_bytes(apk):
-                    stream += s
-                current_len = len(stream)
-                image = Image.frombytes(mode='L', size=(1, current_len), data=stream)
-                image.save(f"{folder}/{filename}.png")
+                tosave = folder + "/" + filename
+                if os.path.isfile(f"D:/DexRay/{tosave}.png"):
+                    print(f"file {filename} already exists .. skipping")
+                    continue
+                fullname = goodware_in + "/" + filename
+                try:
+                    apk = APK(fullname)
+                    stream = bytes()
+                    for s in get_dex_bytes(apk):
+                        stream += s
+                    current_len = len(stream)
+                    image = Image.frombytes(mode='L', size=(1, current_len), data=stream)
+                    image.save(f"D:/DexRay/{tosave}.png")
+                except:
+                    print(f"Snap! file {filename} can't be saved!")
 
     def generate_images(self):
         if self.state == self.GenerateFrom.TXT:
             goodware_in = self.pathToInputFolder + "/goodware_hashes.txt"
             malware_in = self.pathToInputFolder + "/malware_hashes.txt"
-            goodware_out = self.pathToOutputFolder + "/txt/goodware_out"
-            malware_out = self.pathToOutputFolder + "/txt/malware_out"
+            goodware_out = self.pathToOutputFolder + "/txt/goodware"
+            malware_out = self.pathToOutputFolder + "/txt/malware"
 
             goodware_thread = threading.Thread(target=self.generate_image_from_txt,
                                                args=(goodware_in, goodware_out))
@@ -93,10 +101,15 @@ class ImagesGenerator:
 
 
         else:
-            goodware_in = self.pathToInputFolder + "/goodware_apks"
-            malware_in = self.pathToInputFolder + "/malware_apks"
+            goodware_in = "D:/DexRay/apks/goodware/apps/test"
+            malware_in = "D:/DexRay/apks/malware"
             goodware_out = self.pathToOutputFolder + "/apk/goodware_out"
             malware_out = self.pathToOutputFolder + "/apk/malware_out"
+
+            print(f"Path to goodware apks: {goodware_in}")
+            print(f"Path to malware apks: {malware_in}")
+            print(f"Path to goodware images: {goodware_out}")
+            print(f"Path to malware images: {malware_out}")
 
             goodware_thread = threading.Thread(target=self.generate_image_from_apk,
                                                args=(goodware_in, goodware_out))
@@ -122,6 +135,8 @@ if __name__ == "__main__":
     imageGenerator.generate_images()
 
     """
+    
+    ```python3 DexRay.py -p "images/txt" -d "results_dir" -f "results_dir/scores.txt"```
     else:
         filename = sys.argv[1]
         destination_folder = sys.argv[2]
