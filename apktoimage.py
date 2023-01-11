@@ -101,9 +101,9 @@ class ImagesGenerator:
 
 
         else:
-            goodware_in = "D:/DexRay/apks/goodware/apps/test"
+            goodware_in = "D:/DexRay/apks/goodware/apps/train"
             malware_in = "D:/DexRay/apks/malware"
-            goodware_out = self.pathToOutputFolder + "/apk/goodware_out"
+            goodware_out = self.pathToOutputFolder + "/apk/goodware_out/train"
             malware_out = self.pathToOutputFolder + "/apk/malware_out"
 
             print(f"Path to goodware apks: {goodware_in}")
